@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "ftubarber",
+    "slug": "ftubarber",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
