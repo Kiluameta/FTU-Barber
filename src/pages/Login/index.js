@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigation } from "@react-navigation/native"
 import {
     Keyboard,
     TouchableWithoutFeedback
@@ -23,8 +24,18 @@ import Key from '../../assets/lock.svg'
 
 export function Login () {
 
+    const navigation = useNavigation()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const handleSubmit = () => {
+
+    }
+
+    const handleSubmitSingup = () => {
+        navigation.navigate('Registration')
+    }
 
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
@@ -47,13 +58,13 @@ export function Login () {
                         password={true}
                     />
 
-                    <Button>
+                    <Button  onPress={handleSubmit} >
                         <TextButtom>LOGIN</TextButtom>
                     </Button>
 
                 </InputArea>
 
-                <MessageButtom>
+                <MessageButtom onPress={handleSubmitSingup} >
                     <MessageTextButtom>Não possui conta?</MessageTextButtom>
                     <MessageTextButtomBold>Cadastre-se</MessageTextButtomBold>
                 </MessageButtom>
