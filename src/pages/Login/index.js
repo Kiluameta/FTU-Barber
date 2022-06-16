@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
 import {
     Keyboard,
@@ -21,6 +21,7 @@ import LoginInput from "../../components/LoginInput"
 import Barber from '../../assets/icone/Barber.svg'
 import Email from '../../assets/email.svg'
 import Key from '../../assets/lock.svg'
+import { auth } from "../../../firebase"
 
 export function Login () {
 
@@ -29,8 +30,24 @@ export function Login () {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleSubmit = () => {
+    useEffect(() => {
+        const unsub = auth.onAuthStateChanged(user => {
+            if (user) {
+                // navigation.navigate('')
+            }
+        })
 
+        return unsub
+    },[])
+
+    const handleSubmit = () => {
+        auth
+        .signInWithEmailAndPassword(email, password)
+        .then(userCredentials => {
+            const user = userCredentials.user
+            console.log('Logado com ', user.email)
+        })
+        .catch(e => alert(e.message))
     }
 
     const handleSubmitSingup = () => {
