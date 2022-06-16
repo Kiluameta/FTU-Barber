@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
 import {
     Keyboard,
@@ -22,6 +22,7 @@ import Barber from '../../assets/icone/Barber.svg'
 import Person from '../../assets/person.svg'
 import Email from '../../assets/email.svg'
 import Key from '../../assets/lock.svg'
+import { auth } from "../../../firebase"
 
 export function Registration () {
 
@@ -32,8 +33,24 @@ export function Registration () {
     const [password, setPassword] = useState('')
     const [confirm, setConfirm] = useState('')
 
-    const handleSubmit = () => {
+    useEffect(() => {
+        const unsub = auth.onAuthStateChanged(user => {
+            if (user) {
+                // navigation.navigate('')
+            }
+        })
 
+        return unsub
+    },[])
+
+    const handleSubmit = () => {
+        auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(userCredentials => {
+            const user = userCredentials.user
+            console.log('Registrado com ', user.email)
+        })
+        .catch(e => alert(e.message))
     }
 
     const handleSubmitSingup = () => {
