@@ -1,25 +1,27 @@
 import React from "react"
-import { createStackNavigator } from '@react-navigation/stack'
-import { NavigationContainer } from "@react-navigation/native"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
-import { Splash } from '../pages/Splash'
-import { Login } from '../pages/Login'
-import { Registration } from '../pages/Registration'
-import { View, Text } from "react-native"
+import { Home } from '../pages/Main/Home'
+import { Search } from '../pages/Main/Search'
+import { Appoint } from '../pages/Main/Appoint'
+import { Favorite } from '../pages/Main/Favorite'
+import { Profile } from '../pages/Main/Profile'
 
-const Stack = createStackNavigator()
+const Bottom = createBottomTabNavigator() 
 
-export default function Main () {
+export default function Main (){
     return(
-            <Stack.Navigator
-                initialRouteName="Splash"
-                screenOptions={{
-                    headerShown: false
-                }}
-            >
-                <Stack.Screen name="Splash" component={Splash} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="Registration" component={Registration} />
-            </Stack.Navigator>
+        <Bottom.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <Bottom.Screen name="Home" component={Home} />
+            <Bottom.Screen name="Search" component={Search} />
+            <Bottom.Screen name="Appoint" component={Appoint} />
+            <Bottom.Screen name="Favorite" component={Favorite} />
+            <Bottom.Screen name="Profile" component={Profile} />
+        </Bottom.Navigator>
     )
 }
