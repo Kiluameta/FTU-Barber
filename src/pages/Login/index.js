@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useNavigation } from "@react-navigation/native"
 import {
     Keyboard,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert
 } from 'react-native'
 import { 
     Container,
@@ -23,8 +24,11 @@ import Email from '../../assets/email.svg'
 import Key from '../../assets/lock.svg'
 import { auth } from "../../../firebase"
 
+import { UserContext } from '../../global/contexts/index'
+
 export function Login () {
 
+    const { dispatch: userDispatch } = useContext(UserContext)
     const navigation = useNavigation()
 
     const [email, setEmail] = useState('')
@@ -41,13 +45,29 @@ export function Login () {
     },[])
 
     const handleSubmit = () => {
-        auth
-        .signInWithEmailAndPassword(email, password)
-        .then(userCredentials => {
-            const user = userCredentials.user
-            console.log('Logado com ', user.email)
-        })
-        .catch(e => alert(e.message))
+        if (email != '' && password != '') {
+            auth
+            .signInWithEmailAndPassword(email, password)
+            .then(userCredentials => {
+                const user = userCredentials.user
+                console.log('Logado com ', user.email)
+            })
+            .catch(e => alert(e.message))
+
+            // userDispatch({
+            //     type:'setAvatar',
+            //     payload:{
+            //         avatar: *avatar*
+            //     }
+            // })
+
+            navigation.reset({
+                routes:[{name: 'Main'}]
+            })
+
+        }else{
+            Alert.alert("Preencha os campos corretamente!")
+        }
     }
 
     const handleSubmitSingup = () => {

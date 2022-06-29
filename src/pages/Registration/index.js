@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
 import {
     Keyboard,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Alert
 } from 'react-native'
 import { 
     Container,
@@ -44,13 +45,19 @@ export function Registration () {
     },[])
 
     const handleSubmit = () => {
-        auth
-        .createUserWithEmailAndPassword(email, password)
-        .then(userCredentials => {
-            const user = userCredentials.user
-            console.log('Registrado com ', user.email)
-        })
-        .catch(e => alert(e.message))
+        if (email != '' && password != '' && name != '' && confirm != ''){
+            auth
+            .createUserWithEmailAndPassword(email, password)
+            .then(userCredentials => {
+                const user = userCredentials.user
+                console.log('Registrado com ', user.email)
+            })
+            .catch(e => alert(e.message))
+
+            navigation.navigate('Login')
+        }else{
+            Alert.alert("Preencha os campos corretamente!")
+        }
     }
 
     const handleSubmitSingup = () => {
