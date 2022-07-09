@@ -8,6 +8,7 @@ export const InputArea = styled.View`
     flex-direction: row;
     border-radius: 30px;
     padding-left: ${RFValue(15)}px;
+    padding-right: ${RFValue(15)}px;
     align-items: center;
     margin-bottom: ${RFValue(15)}px;
 `
@@ -16,5 +17,5 @@ export const Input = styled.TextInput`
     flex: 1;
     font-size: ${RFValue(16)}px;
     color: #28232B;
-    margin-left: ${RFValue(10)}px;;
+    margin-left: ${RFValue(10)}px;
 ` 

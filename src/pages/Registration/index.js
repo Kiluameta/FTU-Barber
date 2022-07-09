@@ -37,7 +37,7 @@ export function Registration () {
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(user => {
             if (user) {
-                // navigation.navigate('')
+                navigation.navigate('Main')
             }
         })
 
@@ -50,6 +50,10 @@ export function Registration () {
             .createUserWithEmailAndPassword(email, password)
             .then(userCredentials => {
                 const user = userCredentials.user
+                const token = async () => {
+                    await AsyncStorage.setItem('@token', JSON .stringify (user.email))
+                }
+                token()
                 console.log('Registrado com ', user.email)
             })
             .catch(e => alert(e.message))
