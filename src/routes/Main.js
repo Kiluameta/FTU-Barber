@@ -1,6 +1,8 @@
 import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
+import CustomBottomBar from "../components/CustomBottomBar"
+
 import { Home } from '../pages/Main/Home'
 import { Search } from '../pages/Main/Search'
 import { Appoint } from '../pages/Main/Appoint'
@@ -11,12 +13,9 @@ const Bottom = createBottomTabNavigator()
 
 export default function Main (){
     return(
-        <Bottom.Navigator
-            initialRouteName="Home"
-            screenOptions={{
-                headerShown: false
-            }}
-        >
+        <Bottom.Navigator tabBar={props=><CustomBottomBar {...props} />}
+                
+            >
             <Bottom.Screen name="Home" component={Home} />
             <Bottom.Screen name="Search" component={Search} />
             <Bottom.Screen name="Appoint" component={Appoint} />
