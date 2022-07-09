@@ -14,7 +14,7 @@ export function Splash (){
             const token = await AsyncStorage.getItem('@token')
             
             if(token){
-                
+                navigation.navigate('Main')
             } else {
                 navigation.navigate('Login')
             }

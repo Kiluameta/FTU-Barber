@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useNavigation } from "@react-navigation/native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import {
     Keyboard,
     TouchableWithoutFeedback,
@@ -37,19 +38,23 @@ export function Login () {
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(user => {
             if (user) {
-                // navigation.navigate('')
+                navigation.navigate('Main')
             }
         })
 
         return unsub
     },[])
 
-    const handleSubmit = () => {
+    const handleSubmit =  ()  => {
         if (email != '' && password != '') {
             auth
             .signInWithEmailAndPassword(email, password)
-            .then(userCredentials => {
+            .then(userCredentials  => {
                 const user = userCredentials.user
+                const token = async () => {
+                    await AsyncStorage.setItem('@token', JSON .stringify (user.email))
+                }
+                token()
                 console.log('Logado com ', user.email)
             })
             .catch(e => alert(e.message))

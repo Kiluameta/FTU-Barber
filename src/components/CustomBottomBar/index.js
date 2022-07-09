@@ -17,7 +17,7 @@ export default ({state, navigation}) => {
     }
 
     return(
-        <View style={{backgroundColor:'#171618'}}>
+        <View style={{backgroundColor:'#171618'}} >
             <Tab>
                 <Content onPress={() => lets('Home')} >
                     <Home width='32' style={{opacity: state.index === 0 ? 1 : 0.7}} height='32' fill="#FFF" />  

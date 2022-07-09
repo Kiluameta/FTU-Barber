@@ -25,3 +25,9 @@ export const ContentCenter = styled.TouchableOpacity`
     border: 5px solid black;
     margin-top: -20px;
 `
+
+export const AvatarIcon = styled.Image`
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+`

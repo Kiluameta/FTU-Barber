@@ -13,14 +13,22 @@ const Bottom = createBottomTabNavigator()
 
 export default function Main (){
     return(
-        <Bottom.Navigator tabBar={props=><CustomBottomBar {...props} />}
-                
-            >
-            <Bottom.Screen name="Home" component={Home} />
-            <Bottom.Screen name="Search" component={Search} />
-            <Bottom.Screen name="Appoint" component={Appoint} />
-            <Bottom.Screen name="Favorite" component={Favorite} />
-            <Bottom.Screen name="Profile" component={Profile} />
+        <Bottom.Navigator tabBar={props=><CustomBottomBar {...props}  />}>
+            <Bottom.Screen name="Home" component={Home} options={{
+                headerShown: false
+                }} />
+            <Bottom.Screen name="Search" component={Search} options={{
+                headerShown: false
+                }} />
+            <Bottom.Screen name="Appoint" component={Appoint} options={{
+                headerShown: false
+                }} />
+            <Bottom.Screen name="Favorite" component={Favorite} options={{
+                headerShown: false
+                }} />
+            <Bottom.Screen name="Profile" component={Profile} options={{
+                headerShown: false
+                }} />
         </Bottom.Navigator>
     )
 }
