@@ -39,7 +39,7 @@ export function Registration () {
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(user => {
             if (user) {
-                // navigation.navigate('Main')
+                navigation.navigate('Main')
             }
         })
 
