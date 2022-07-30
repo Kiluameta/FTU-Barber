@@ -1,5 +1,7 @@
 import React from "react"
 
+import { db } from "../../../../firebase"
+
 import {
     Keyboard,
     Text,
@@ -19,10 +21,20 @@ import {
     Scroll
 } from './styles'
 
-import SearchIcon from '../../../assets/search.svg'
-import LocationIcon from '../../../assets/my_location.svg'
+// import SearchIcon from '../../../assets/search.svg'
+// import LocationIcon from '../../../assets/my_location.svg'
 
 export function Home () {
+    const docRef = db.collection('users').doc('alovelace');
+
+    (async () => {
+        await docRef.set({
+            first: 'Ada',
+            last: 'Lovelace',
+            born: 1815
+          });
+    })();
+
     return(
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} >
             <Container>
