@@ -16,5 +16,6 @@ export const Input = styled.TextInput`
     flex: 1;
     font-size: ${RFValue(16)}px;
     color: #28232B;
-    margin-left: ${RFValue(10)}px;;
+    margin-left: ${RFValue(10)}px;
+    margin-right: ${RFValue(25)}px;
 ` 

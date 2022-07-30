@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useNavigation } from "@react-navigation/native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import {
     Keyboard,
     TouchableWithoutFeedback,
@@ -17,7 +18,7 @@ import {
     MessageTextButtomBold 
 } from './styles'
 
-import LoginInput from "../../components/LoginInput"
+import Input from "../../components/Input"
 
 import Barber from '../../assets/icone/Barber.svg'
 import Email from '../../assets/email.svg'
@@ -28,7 +29,7 @@ import { UserContext } from '../../global/contexts/index'
 
 export function Login () {
 
-    const { dispatch: userDispatch } = useContext(UserContext)
+    // const { dispatch: userDispatch } = useContext(UserContext)
     const navigation = useNavigation()
 
     const [email, setEmail] = useState('')
@@ -37,19 +38,23 @@ export function Login () {
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(user => {
             if (user) {
-                // navigation.navigate('')
+                navigation.navigate('Main')
             }
         })
 
         return unsub
     },[])
 
-    const handleSubmit = () => {
-        if (email != '' && password != '') {
+    const handleSubmit =  ()  => {
+        if (email && password) {
             auth
             .signInWithEmailAndPassword(email, password)
-            .then(userCredentials => {
+            .then(userCredentials  => {
                 const user = userCredentials.user
+                const token = async () => {
+                    await AsyncStorage.setItem('@token', JSON .stringify (user.email))
+                }
+                token()
                 console.log('Logado com ', user.email)
             })
             .catch(e => alert(e.message))
@@ -81,13 +86,13 @@ export function Login () {
 
                 <InputArea>
 
-                    <LoginInput 
+                    <Input 
                         IconSvg={Email} 
                         placeholder="E-mail" 
                         value={email}
                         onChangeText={t=>setEmail(t)}
                     />
-                    <LoginInput 
+                    <Input 
                         IconSvg={Key} 
                         placeholder="Senha" 
                         value={password}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import {
     Keyboard,
     TouchableWithoutFeedback,
@@ -17,7 +18,7 @@ import {
     MessageTextButtomBold 
 } from './styles'
 
-import LoginInput from "../../components/LoginInput"
+import Input from "../../components/Input"
 
 import Barber from '../../assets/icone/Barber.svg'
 import Person from '../../assets/person.svg'
@@ -37,7 +38,7 @@ export function Registration () {
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(user => {
             if (user) {
-                // navigation.navigate('')
+                navigation.navigate('Main')
             }
         })
 
@@ -45,11 +46,15 @@ export function Registration () {
     },[])
 
     const handleSubmit = () => {
-        if (email != '' && password != '' && name != '' && confirm != ''){
+        if (email && password  && name && confirm){
             auth
             .createUserWithEmailAndPassword(email, password)
             .then(userCredentials => {
                 const user = userCredentials.user
+                const token = async () => {
+                    await AsyncStorage.setItem('@token', JSON .stringify (user.email))
+                }
+                token()
                 console.log('Registrado com ', user.email)
             })
             .catch(e => alert(e.message))
@@ -71,21 +76,21 @@ export function Registration () {
 
                 <InputArea>
 
-                    <LoginInput 
+                    <Input 
                         IconSvg={Person} 
                         placeholder="Digite seu Nome" 
                         value={name}
                         onChangeText={t=>setName(t)}
                     />
 
-                    <LoginInput 
+                    <Input 
                         IconSvg={Email} 
                         placeholder="Digite seu E-mail" 
                         value={email}
                         onChangeText={t=>setEmail(t)}
                     />
 
-                    <LoginInput 
+                    <Input 
                         IconSvg={Key} 
                         placeholder="Digite sua Senha" 
                         value={password}
@@ -93,7 +98,7 @@ export function Registration () {
                         password={true}
                     />
 
-                    <LoginInput 
+                    <Input 
                         IconSvg={Key} 
                         placeholder="Confirmar Senha" 
                         value={confirm}
