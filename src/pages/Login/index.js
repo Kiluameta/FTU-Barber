@@ -46,15 +46,19 @@ export function Login () {
     },[])
 
     const handleSubmit =  ()  => {
-        if (email != '' && password != '') {
+        if (email && password) {
             auth
             .signInWithEmailAndPassword(email, password)
-            .then(userCredentials  => {
+            .then((userCredentials) => {
+                
                 const user = userCredentials.user
-                const token = async () => {
-                    await AsyncStorage.setItem('@token', JSON .stringify (user.email))
-                }
-                token()
+                const token = JSON.parse(JSON.stringify(userCredentials.user)).accessToken
+                const name = user.displayName
+                
+                (async () => {
+                    await AsyncStorage.setItem('@token', token)
+                    await AsyncStorage.setItem('@name', JSON.stringify(name))
+                })();
                 console.log('Logado com ', user.email)
             })
             .catch(e => alert(e.message))
