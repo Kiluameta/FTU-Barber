@@ -24,7 +24,7 @@ let app;
 if (firebase.apps.length === 0){
     app = firebase.initializeApp(firebaseConfig);
     
-}else {
+}else{
     app = firebase.app()
     
 }
