@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
 import {
     Keyboard,
     TouchableWithoutFeedback,
@@ -45,16 +47,19 @@ export function Registration () {
     },[])
 
     const handleSubmit = () => {
-        if (email != '' && password != '' && name != '' && confirm != ''){
+        if (email  && password  && name && confirm){
             auth
             .createUserWithEmailAndPassword(email, password)
             .then(userCredentials => {
                 const user = userCredentials.user
                 const token = async () => {
-                    await AsyncStorage.setItem('@token', JSON .stringify (user.email))
+                    await AsyncStorage.setItem('@token', JSON.stringify(user.email))
                 }
                 token()
                 console.log('Registrado com ', user.email)
+                return userCredentials.user.updateProfile({
+                    displayName: name
+                })
             })
             .catch(e => alert(e.message))
 
